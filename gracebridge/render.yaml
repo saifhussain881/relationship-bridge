@@ -2,7 +2,7 @@ services:
   - type: web
     name: gracebridge
     env: node
-    rootDir: gracebridge
+    rootDir: .
     buildCommand: npm install && npm run build
     startCommand: node server.js
     envVars:
