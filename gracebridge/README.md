@@ -1,6 +1,6 @@
 # GraceBridge - Christian Counseling Chat Application
 
-GraceBridge is a frontend-only React application that simulates a 3-way Christian counseling chatbot experience. It allows users to create or join a counseling session where they can interact with a simulated partner and an AI counselor that provides faith-based guidance.
+GraceBridge is a React application with a Node.js backend that provides a 3-way Christian counseling chatbot experience. It allows users to create or join a counseling session where they can interact with a partner and an AI counselor that provides faith-based guidance.
 
 ## Features
 
@@ -14,6 +14,9 @@ GraceBridge is a frontend-only React application that simulates a 3-way Christia
 ## Technologies Used
 
 - React.js (with functional components and hooks)
+- Node.js and Express for backend
+- Socket.io for real-time communication
+- Cohere AI for counseling responses
 - React Router v6 for navigation
 - Tailwind CSS for styling
 - Google Fonts (Inter/Nunito)
@@ -39,10 +42,15 @@ gracebridge/
 │   │   ├── SessionEndPage.jsx
 │   │   ├── SessionPage.jsx
 │   │   └── WaitingRoomPage.jsx
+│   ├── services/
+│   │   └── socketService.js
 │   ├── App.js
 │   ├── index.css
 │   ├── index.js
 │   └── reportWebVitals.js
+├── routes/
+│   └── chat.js
+├── server.js
 ├── package.json
 ├── tailwind.config.js
 └── postcss.config.js
@@ -50,25 +58,52 @@ gracebridge/
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js 14+ installed
+- A Cohere API key (sign up at https://cohere.ai/)
+
+### Local Development
+
 1. Clone the repository
 2. Install dependencies:
    ```
    npm install
    ```
-3. Start the development server:
+3. Create a `.env` file in the root directory with your Cohere API key:
    ```
-   npm start
+   COHERE_API_KEY=your_api_key_here
    ```
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Start the development server:
+   ```
+   npm run dev
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Deployment
+
+We've provided several options for deploying GraceBridge for free:
+
+### Quick Deploy
+
+Run our deployment helper script:
+```
+npm run deploy:helper
+```
+
+This will guide you through the deployment preparation process.
+
+### Deployment Options
+
+For detailed deployment instructions to various platforms including Render.com, Heroku, Glitch, and Vercel, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Notes
 
-This is a frontend-only demonstration with no backend integration. All chat interactions are simulated using mock data and timeouts. In a production environment, this would be connected to a real-time backend service with actual AI counseling capabilities.
+The application uses Cohere AI for generating counseling responses. You'll need a valid Cohere API key for the counselor functionality to work properly.
 
 ## Future Enhancements
 
-- Backend integration with real-time chat functionality
 - User authentication and session persistence
-- Actual AI counselor integration
+- Enhanced AI counselor capabilities
 - Mobile app version
 - Session history and saved reflections 

@@ -20,13 +20,24 @@ const server = http.createServer(app);
 // Create Socket.IO server with CORS
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.NODE_ENV === 'production' 
+      ? true  // Allow any origin in production
+      : "http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });
 
 // API routes
 app.use('/api', chatRoutes);
+
+// Serve static files from the React build in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
 
 // Initialize Cohere client
 const cohere = new CohereClient({

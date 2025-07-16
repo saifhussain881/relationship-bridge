@@ -45,7 +45,14 @@ class SocketService {
     console.log(`Creating new socket connection for session ${sessionId} as ${userName}`);
     
     // Create socket connection
-    this.socket = io('http://localhost:5000', {
+    // In production, connect to the same host that serves the app
+    // In development, connect to the local server
+    const serverUrl = process.env.NODE_ENV === 'production' 
+      ? window.location.origin
+      : 'http://localhost:5000';
+      
+    console.log(`Connecting to socket server at: ${serverUrl}`);
+    this.socket = io(serverUrl, {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
       timeout: 10000
